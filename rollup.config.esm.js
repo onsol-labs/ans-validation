@@ -9,7 +9,7 @@ import strip from '@rollup/plugin-strip';
 
 const pkg = require('./package.json');
 
-const libraryName = 'ens-validation';
+const libraryName = 'ans-validation';
 
 /**
  * Include all of the dependencies here to exclude all node modules from the build
@@ -36,7 +36,10 @@ export default {
       globals: outputGlobals,
       sourcemap: true,
     },
-    { file: pkg.module, format: 'es', globals: outputGlobals, sourcemap: true },
+    {
+      file: pkg.module,
+      name: libraryName, format: 'es', globals: outputGlobals, sourcemap: true
+    },
   ],
 
   // exclude all node modules
@@ -51,9 +54,9 @@ export default {
     commonjs({
       exclude: ['node_modules/rollup-plugin-node-globals/**'],
       namedExports: {
-        './node_modules/punycode/punycode.js': ['toUnicode' ],
-        './node_modules/rollup-plugin-node-builtins/src/es6/url.js': [ 'Url' ],
-        './node_modules/xregexp/lib/index.js': [ 'OuterXRegExp' ],
+        './node_modules/punycode/punycode.js': ['toUnicode'],
+        './node_modules/rollup-plugin-node-builtins/src/es6/url.js': ['Url'],
+        './node_modules/xregexp/lib/index.js': ['OuterXRegExp'],
       },
     }),
     globals(),
@@ -61,7 +64,7 @@ export default {
     // Compile TypeScript files
     typescript({
       useTsconfigDeclarationDir: true,
-      tsconfig: './tsconfig-build.json',
+      tsconfig: './tsconfig.esm.json',
     }),
     // Resolve source maps to the original source
     sourceMaps(),
