@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
       "outDir": "dist",
+      "target": "es2020",
       "sourceMap": true,
+      "module": "es2015",
       "baseUrl": "./",
       "lib": ["es2020"],
       "allowSyntheticDefaultImports": true,
@@ -17,18 +19,9 @@
       "strictNullChecks": true,
       "strictPropertyInitialization": true,
       "noFallthroughCasesInSwitch": true,
-      "declaration": true,
       "noImplicitThis": true,
       "noErrorTruncation": true,
-      "declarationMap": true,
       "pretty": true
     },
-    "include": ["./src/", "./__test__/", "examples"],
-    "exclude": [
-      "tests",
-      "dist",
-      "node_modules",
-      "script",
-      "jest.config.ts"
-    ]
+    "include": ["./src/", "./__test__/", "examples"]
   }

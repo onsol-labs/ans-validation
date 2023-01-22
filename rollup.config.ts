@@ -1,15 +1,16 @@
 import sourceMaps from 'rollup-plugin-sourcemaps';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
+import nodeResolve from '@rollup/plugin-node-resolve';
 import globals from 'rollup-plugin-node-globals';
 import builtins from 'rollup-plugin-node-builtins';
-import json from 'rollup-plugin-json';
+import json from '@rollup/plugin-json';
 import strip from '@rollup/plugin-strip';
+import dts from 'rollup-plugin-dts';
 
 const pkg = require('./package.json');
 
-const libraryName = 'ans-validation';
+const libraryName = 'ens-validation';
 
 /**
  * Include all of the dependencies here to exclude all node modules from the build
@@ -25,9 +26,8 @@ const external = ['lodash', 'utf8', 'url'];
 const outputGlobals = {};
 
 // tslint:disable-next-line
-export default {
+export default [{
   input: `src/index.ts`,
-
   output: [
     {
       file: pkg.main,
@@ -36,10 +36,7 @@ export default {
       globals: outputGlobals,
       sourcemap: true,
     },
-    {
-      file: pkg.module,
-      name: libraryName, format: 'es', globals: outputGlobals, sourcemap: true
-    },
+    { file: pkg.module, format: 'es', globals: outputGlobals, sourcemap: true },
   ],
 
   // exclude all node modules
@@ -50,7 +47,7 @@ export default {
   },
   plugins: [
     builtins(),
-    nodeResolve({ jsnext: true, main: true, browser: true }),
+    nodeResolve({ mainFields: ['module', 'jsnext:main', 'main', 'browser'] }),
     commonjs({
       exclude: ['node_modules/rollup-plugin-node-globals/**'],
       namedExports: {
@@ -63,8 +60,9 @@ export default {
     json(),
     // Compile TypeScript files
     typescript({
-      useTsconfigDeclarationDir: true,
-      tsconfig: './tsconfig.esm.json',
+      //useTsconfigDeclarationDir: true,
+      tsconfig: './tsconfig-build.json',
+      //verbosity: 3,
     }),
     // Resolve source maps to the original source
     sourceMaps(),
@@ -72,4 +70,11 @@ export default {
       include: ['**/*.ts']
     })
   ],
-};
+}
+/*, {
+  // path to your declaration files root
+  input: './dist/types/index.d.ts',
+  output: [{ file: 'dist/index.d.ts', format: 'es' }],
+  plugins: [dts.default()],
+}*/
+];
