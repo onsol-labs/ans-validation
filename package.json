@@ -1,6 +1,6 @@
 {
-  "name": "@onsol/ens-validation",
-  "version": "0.1.0",
+  "name": "@onsol/ans-validation",
+  "version": "0.1.1",
   "description": "",
   "private": false,
   "main": "dist/ens-validation.umd.js",
