@@ -83,7 +83,7 @@ export class SpoofChecker implements SpoofCheckerContract {
       console.log('SpoofChecks.RESTRICTION_LEVEL result ', result.toString(2));
     }
     if (0 !== (this.checks & SpoofChecks.MIXED_NUMBERS)) {
-      console.log('MIXED_NUMBERS', result);
+      // console.log('MIXED_NUMBERS', result);
       const numerics = this.getNumerics(input);
       if (numerics.length > 1) {
         result |= SpoofChecks.MIXED_NUMBERS;
@@ -104,7 +104,7 @@ export class SpoofChecker implements SpoofCheckerContract {
     }
 
     if (0 !== (this.checks & SpoofChecks.INVISIBLE)) {
-      console.log('INVISIBLE', result);
+      // console.log('INVISIBLE', result);
       // This check needs to be done on NFD input
       const nfdText: string = input.normalize('NFD');
       const nfdLength: number = nfdText.length;
