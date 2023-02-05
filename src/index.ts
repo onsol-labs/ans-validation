@@ -32,9 +32,9 @@ function cleanupANS(strings: string[]): boolean {
         string.includes('--') ||
         string === 'None' ||
         string === '' ||
-        !string ||
-        unicode === '' ||
-        !unicode
+        !string
+        // unicode === '' ||
+        // !unicode
     ) {
         return false;
     }
