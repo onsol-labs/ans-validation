@@ -83,7 +83,7 @@ export class SpoofChecker implements SpoofCheckerContract {
       console.log('SpoofChecks.RESTRICTION_LEVEL result ', result.toString(2));
     }
     if (0 !== (this.checks & SpoofChecks.MIXED_NUMBERS)) {
-      // console.log('MIXED_NUMBERS', result)
+      // console.log('MIXED_NUMBERS', result);
       const numerics = this.getNumerics(input);
       if (numerics.length > 1) {
         result |= SpoofChecks.MIXED_NUMBERS;

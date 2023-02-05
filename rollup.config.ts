@@ -10,7 +10,7 @@ import dts from 'rollup-plugin-dts';
 
 const pkg = require('./package.json');
 
-const libraryName = 'ens-validation';
+const libraryName = 'ans-validation';
 
 /**
  * Include all of the dependencies here to exclude all node modules from the build

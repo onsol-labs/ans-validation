@@ -1,5 +1,3 @@
-import * as punycode from 'punycode';
-
 export class Domain {
   public readonly hostname: string;
   public readonly labels: string[];
@@ -8,7 +6,7 @@ export class Domain {
   constructor(hostname: string) {
     this.hostname = hostname;
     // tslint:disable-next-line:deprecation
-    this.labels = this.hostname.split('.').map(punycode.toUnicode);
+    this.labels = this.hostname.split('.');
     this.isTldAscii = !this.hostname
       .substring(this.hostname.lastIndexOf('.'))
       .startsWith('.xn--');
