@@ -23,6 +23,7 @@ function cleanupANS(strings: string[]): boolean {
     // checks for ['-', '_'] in the beginning and at the end.
     // checks for xn--, since currently we don't allot such values.
     const unicode = url.domainToUnicode(string);
+    console.log('unicode: ', unicode);
     if (
         string.charAt(0).includes('-') ||
         string.charAt(0).includes('_') ||
