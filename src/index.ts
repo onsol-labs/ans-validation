@@ -1,6 +1,7 @@
 import { Domain } from './domain';
 import { RestrictionLevel } from './enums';
 import { SpoofChecker } from './spoof-checker';
+import { SpoofCheckerResult, SpoofCheckResult } from './spoof-checker-result';
 
 export function validate(input: string): boolean {
   try {
@@ -33,4 +34,28 @@ function cleanupANS(strings: string[]): boolean {
     return false;
   }
   return checker.safeToDisplayAsUnicode(string, true);
+}
+
+export function validationResultChecker(string: string): SpoofCheckResult {
+  const checker: SpoofCheckerResult = new SpoofCheckerResult();
+  checker.restrictionLevel = RestrictionLevel.ASCII;
+  // checker.restrictionLevel = RestrictionLevel.HIGHLY_RESTRICTIVE;
+
+  // checks for ['-', '_'] in the beginning and at the end.
+  // checks for xn--, since currently we don't allot such values.
+  if (
+    string.charAt(0).includes('-') ||
+    string.charAt(0).includes('_') ||
+    string.charAt(string.length - 1).includes('-') ||
+    string.charAt(string.length - 1).includes('_') ||
+    string.includes('--') ||
+    string === '' ||
+    !string
+  ) {
+    return {
+      spoofCheckSafe: false,
+      spoofCheckResultValue: 0,
+    };
+  }
+  return checker.returnSpoofCheckResult(string);
 }

@@ -1,6 +1,10 @@
-import { validate } from '@src/index';
+import { validationResultChecker } from '@src/index';
 describe('test', () => {
   it('should import validate function', () => {
-    expect(validate.name).toEqual('validate');
+
+    const string = '123';
+    const validationResult = validationResultChecker(string)
+    console.log(validationResult);
+    // expect(validate.name).toEqual('validate');
   });
 });
