@@ -43,16 +43,16 @@ export class SpoofChecker implements SpoofCheckerContract {
       return false;
     }
     result &= RestrictionLevel.RESTRICTION_LEVEL_MASK;
-    console.info('spoof check result', result);
+    // console.info('spoof check result', result);
     // deviation
     if (deviation.test(label)) {
-      console.info('deviation');
+      // console.info('deviation');
       return false;
     }
-    console.log(this.restrictionLevel, RestrictionLevel.ASCII);
+    // console.log(this.restrictionLevel, RestrictionLevel.ASCII);
     // ascii
     if (result === RestrictionLevel.ASCII) {
-      console.info('ascii, return');
+      // console.info('ascii, return');
       return true;
     }
     // single script
@@ -64,11 +64,11 @@ export class SpoofChecker implements SpoofCheckerContract {
       // Check Cyrillic confusable only for ASCII TLDs.
       return !isTldAscii || !this.isMadeOfLatinAlikeCyrillic(label);
     }
-    console.info('multiple script');
+    // console.info('multiple script');
     if (nonAsciiLatin.test(label) && !latinGreekCyrillicAscii.test(label)) {
       return false;
     }
-    console.log('dangerous patterns');
+    // console.log('dangerous patterns');
     return !dangerousPatterns.some(d => d.test(label));
   }
   private check(input: string) {
@@ -80,16 +80,16 @@ export class SpoofChecker implements SpoofCheckerContract {
         result |= SpoofChecks.RESTRICTION_LEVEL;
       }
       checkResult.restrictionLevel = restrictionLevel;
-      console.log('SpoofChecks.RESTRICTION_LEVEL result ', result.toString(2));
+      // console.log('SpoofChecks.RESTRICTION_LEVEL result ', result.toString(2));
     }
     if (0 !== (this.checks & SpoofChecks.MIXED_NUMBERS)) {
-      // console.log('MIXED_NUMBERS', result);
+      // console.log('MIXED_NUMBERS', result)
       const numerics = this.getNumerics(input);
       if (numerics.length > 1) {
         result |= SpoofChecks.MIXED_NUMBERS;
       }
       checkResult.numerics = numerics;
-      console.log('MIXED_NUMBERS result ', result.toString(2));
+      // console.log('MIXED_NUMBERS result ', result.toString(2));
     }
     if (0 !== (this.checks & SpoofChecks.CHAR_LIMIT)) {
       // console.log('CHAR_LIMIT', result);
@@ -100,7 +100,7 @@ export class SpoofChecker implements SpoofCheckerContract {
           break;
         }
       }
-      console.log('CHAR_LIMIT result ', result.toString(2));
+      // console.log('CHAR_LIMIT result ', result.toString(2));
     }
 
     if (0 !== (this.checks & SpoofChecks.INVISIBLE)) {
@@ -121,7 +121,7 @@ export class SpoofChecker implements SpoofCheckerContract {
         if (!nonSpacingMark.test(nfdText[i])) {
           firstNonspacingMark = 0;
           if (haveMultipleMarks) {
-            console.log('multiple marks');
+            // console.log('multiple marks');
             marksSeenSoFar = [];
             haveMultipleMarks = false;
           }
@@ -144,63 +144,63 @@ export class SpoofChecker implements SpoofCheckerContract {
         marksSeenSoFar.push(c);
       }
     }
-    console.log('INVISIBLE result ', result);
+    // console.log('INVISIBLE result ', result);
     checkResult.checks = result;
     return checkResult.toCombinedBitmask(this.checks);
   }
   private getRestrictionLevel(input: string): RestrictionLevel {
-    console.log('getRestrictionLevel');
+    // console.log('getRestrictionLevel');
     if (
       !Array.from(input).every(
         character => allowed.test(character) && !removed.test(character),
       )
     ) {
-      console.log('UNRESTRICTIVE');
+      // console.log('UNRESTRICTIVE');
       return RestrictionLevel.UNRESTRICTIVE;
     }
     let ascii = true;
     for (let i = 0; i < input.length; i++) {
       if (input.charCodeAt(i) > 0x7f) {
-        console.log('Not all ascii');
+        // console.log('Not all ascii');
         ascii = false;
         break;
       }
     }
     if (ascii) {
-      console.log('ASCII', RestrictionLevel.ASCII);
+      // console.log('ASCII', RestrictionLevel.ASCII);
       return RestrictionLevel.ASCII;
     }
     const scriptResolver = new ScriptResolver(input);
-    console.log('scriptResolver', scriptResolver);
+    // console.log('scriptResolver', scriptResolver);
     if (scriptResolver.singleScript()) {
-      console.log('SINGLE_SCRIPT_RESTRICTIVE');
+      // console.log('SINGLE_SCRIPT_RESTRICTIVE');
       return RestrictionLevel.SINGLE_SCRIPT_RESTRICTIVE;
     } else {
-      console.log('HIGHLY_RESTRICTIVE');
+      // console.log('HIGHLY_RESTRICTIVE');
       return RestrictionLevel.HIGHLY_RESTRICTIVE;
     }
   }
   private getNumerics(input: string): string[] {
-    console.log('getNumerics');
+    // console.log('getNumerics');
     const result: string[] = [];
     let charCode: number;
     for (let i = 0; i < input.length; i++) {
       charCode = input.charCodeAt(i);
       if (decimalDigitNumber.test(input[i])) {
-        console.log(
-          'Decimal digit',
-          'Charcode: ' + charCode,
-          'Character: ' + input[i],
-        );
+        // console.log(
+        //   'Decimal digit',
+        //   'Charcode: ' + charCode,
+        //   'Character: ' + input[i],
+        // );
         const zero = String.fromCharCode(charCode - parseInt(input[i], 16));
-        console.log('Zero character', zero);
+        // console.log('Zero character', zero);
         if (result.includes(zero)) {
           continue;
         }
         result.push(zero);
       }
     }
-    console.log('getNumerics result', result);
+    // console.log('getNumerics result', result);
     return result;
   }
   private isMadeOfLatinAlikeCyrillic(label: string): boolean {

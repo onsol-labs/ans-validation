@@ -1,4 +1,4 @@
-// import * as X from 'xregexp';
+//@ts-ignore
 import X from 'xregexp';
 
 export const inBasicLatin = X('\\p{InBasic_Latin}'); // U+0000–U+007F

@@ -1,4 +1,5 @@
 import emojiRegex from 'emoji-regex';
+//@ts-ignore
 import X from 'xregexp';
 
 export const letter = X('\\p{Letter}'); // any kind of letter from any language.

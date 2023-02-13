@@ -1,3 +1,4 @@
+//@ts-ignore
 import X from 'xregexp';
 
 export const deviation = /[\u00df\u03c2\u200c\u200d]/;

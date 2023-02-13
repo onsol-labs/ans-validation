@@ -1,3 +1,4 @@
+//@ts-ignore
 import X from 'xregexp';
 
 export const common = X('\\p{Common}');
