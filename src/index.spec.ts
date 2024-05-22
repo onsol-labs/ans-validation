@@ -7,10 +7,48 @@ describe('test', () => {
   // Chinese True Case
   it('should return true when han is mixed with bopomofo', () => {
     expect(validate('和平')).toEqual(true);
+    expect(validate('幸运的')).toEqual(true);
+    expect(validate('运气')).toEqual(true);
+    expect(validate('兴旺')).toEqual(true);
+    expect(validate('吉祥')).toEqual(true);
+    expect(validate('福分')).toEqual(true);
+    expect(validate('吉利')).toEqual(true);
+    expect(validate('吉祥如意')).toEqual(true);
+    expect(validate('幸运的巧合')).toEqual(true);
+    expect(validate('运气')).toEqual(true);
+    expect(validate('幸运的')).toEqual(true);
+    expect(validate('吉祥')).toEqual(true);
+    expect(validate('如意')).toEqual(true);
+    expect(validate('六六大顺')).toEqual(true);
+    expect(validate('发财')).toEqual(true);
+    expect(validate('龙凤呈祥')).toEqual(true);
+    expect(validate('喜气洋洋')).toEqual(true);
+    expect(validate('吉利')).toEqual(true);
+    expect(validate('八喜')).toEqual(true);
+    expect(validate('福贵')).toEqual(true);
   });
   // Chinese False Case
   it('should return true when han is mixed with bopomofo', () => {
     expect(validate('和平-')).toEqual(false);
+    expect(validate('幸运的-')).toEqual(false);
+    expect(validate('运气-')).toEqual(false);
+    expect(validate('-兴旺')).toEqual(false);
+    expect(validate('-吉祥')).toEqual(false);
+    expect(validate('-福分')).toEqual(false);
+    expect(validate('-吉利')).toEqual(false);
+    expect(validate('--吉祥如意')).toEqual(false);
+    expect(validate('幸运的巧合--')).toEqual(false);
+    expect(validate('运--气')).toEqual(false);
+    expect(validate('幸运--的')).toEqual(false);
+    expect(validate('吉--祥')).toEqual(false);
+    expect(validate('如意--')).toEqual(false);
+    expect(validate('--六六大顺')).toEqual(false);
+    expect(validate('发财-')).toEqual(false);
+    expect(validate('龙凤呈祥--')).toEqual(false);
+    expect(validate('喜气洋洋----')).toEqual(false);
+    expect(validate('吉利-')).toEqual(false);
+    expect(validate('---八喜')).toEqual(false);
+    expect(validate('----福贵')).toEqual(false);
   });
   it('should return false when u2027 is present', () => {
     expect(validate('\u2027')).toEqual(false);
