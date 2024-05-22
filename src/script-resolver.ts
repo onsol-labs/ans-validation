@@ -16,6 +16,20 @@ export class ScriptResolver {
         return { ...previousValue, [currentValue[0]]: true };
       }, {});
   }
+  public chineseScript(): boolean {
+    if (Object.keys(this.resolvedScripts).length === 1) {
+      return true;
+    }
+    // any of these combinations are considered a "singleScript".
+    const scriptCombinations = [      
+      ['common', 'han'],            
+    ];
+    return scriptCombinations.some(combination =>
+      combination.every(scriptName =>
+        this.resolvedScripts.hasOwnProperty(scriptName),
+      ),
+    );
+  }
   public singleScript(): boolean {
     if (Object.keys(this.resolvedScripts).length === 1) {
       return true;

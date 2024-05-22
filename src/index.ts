@@ -14,8 +14,8 @@ export function validate(input: string): boolean {
 
 function cleanupANS(strings: string[]): boolean {
   const checker: SpoofChecker = new SpoofChecker();
-  checker.restrictionLevel = RestrictionLevel.ASCII;
-  // checker.restrictionLevel = RestrictionLevel.HIGHLY_RESTRICTIVE;
+  checker.restrictionLevel = RestrictionLevel.SINGLE_SCRIPT_RESTRICTIVE;
+  //checker.restrictionLevel = RestrictionLevel.HIGHLY_RESTRICTIVE;
 
   const string = strings[0];
 

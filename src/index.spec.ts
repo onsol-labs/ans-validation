@@ -4,6 +4,14 @@ describe('test', () => {
   it('should return false when u0338 is present', () => {
     expect(validate('\u0338')).toEqual(false);
   });
+  // Chinese True Case
+  it('should return true when han is mixed with bopomofo', () => {
+    expect(validate('和平')).toEqual(true);
+  });
+  // Chinese False Case
+  it('should return true when han is mixed with bopomofo', () => {
+    expect(validate('和平-')).toEqual(false);
+  });
   it('should return false when u2027 is present', () => {
     expect(validate('\u2027')).toEqual(false);
   });
@@ -74,5 +82,5 @@ describe('test', () => {
   });
   it('should return false when emoji mixed with dangerous pattern', () => {
     expect(validate('🇬🇧\u30fb')).toEqual(false);
-  });
+  });  
 });

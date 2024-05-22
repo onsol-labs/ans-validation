@@ -1,8 +1,8 @@
 // Dangerous pattern https://cs.chromium.org/chromium/src/components/url_formatter/url_formatter.cc?rcl=0&l=393
 export const dangerousPatterns = [
-  /([^\\p{scx=kana}\\p{scx=hira}\\p{scx=hani}])/,
+  /([^\\p{scx=kana}\\p{scx=hira}])/,
   /([\u30ce\u30f3\u30bd\u30be])/,
-  /([^\\p{scx=kana}\\p{scx=hira}\\p{scx=hani}]|)/,
+  /([^\\p{scx=kana}\\p{scx=hira}]|)/,
   /([^\\p{scx=kana}\\p{scx=hira}]\u30fc|^\u30fc|)/,
   /([^\\p{scx=kana}][\u30fd\u30fe]|^[\u30fd\u30fe]|)/,
   /(^[\\p{scx=kana}]+[\u3078-\u307a][\\p{scx=kana}]+$|)/,
