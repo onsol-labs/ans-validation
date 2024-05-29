@@ -1,5 +1,6 @@
 import X from 'xregexp';
 
+export const domainChineseRegex = X('^[\\p{ASCII}\\p{Han}]*$', 'u');
 export const common = X('\\p{Common}');
 export const arabic = X('\\p{Arabic}');
 export const armenian = X('\\p{Armenian}');

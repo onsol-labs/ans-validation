@@ -2,6 +2,18 @@ import { validate } from './index';
 
 describe('test', () => {
   it('should return false when u0338 is present', () => {
+    expect(validate('السعادةasdf')).toEqual(false);
+  });
+  it('Ararbic Test', () => {
+    expect(validate('السعادة')).toEqual(false);
+  });
+  it('Japanese Test', () => {
+    expect(validate('こんにちは')).toEqual(false);
+  });
+  it('normal ASCII', () => {
+    expect(validate('asdf')).toEqual(true);
+  });
+  it('should return false when u0338 is present', () => {
     expect(validate('\u0338')).toEqual(false);
   });
   // Chinese True Case
@@ -84,11 +96,11 @@ describe('test', () => {
     // latin and greek
     expect(validate('latin\u0370')).toEqual(false);
     // greek
-    expect(validate('\u0370')).toEqual(true);
+    expect(validate('\u0370')).toEqual(false);
     // greek and cyrillic
     expect(validate('\u0370\u0409')).toEqual(false);
     // cyrillic
-    expect(validate('\u0409')).toEqual(true);
+    expect(validate('\u0409')).toEqual(false);
   });
   it('should return false when cyrillic characters, which look like latin, are present', () => {
     expect(validate('асԁеһіјӏорԛѕԝхуъЬҽпгѵѡ')).toEqual(false);

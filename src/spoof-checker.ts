@@ -62,14 +62,22 @@ export class SpoofChecker implements SpoofCheckerContract {
       !combiningDiacriticException.test(label)
     ) {
       // Check Cyrillic confusable only for ASCII TLDs.
-      return !isTldAscii || !this.isMadeOfLatinAlikeCyrillic(label);
+      return (
+        (!isTldAscii || !this.isMadeOfLatinAlikeCyrillic(label)) &&
+        this.isMadeOfHan(label)
+      );
     }
     console.info('multiple script');
     if (nonAsciiLatin.test(label) && !latinGreekCyrillicAscii.test(label)) {
       return false;
     }
+    if (scripts.domainChineseRegex.test(label)) { return true; }
     console.log('dangerous patterns');
-    return !dangerousPatterns.some(d => d.test(label));
+    return !dangerousPatterns.some(d => {
+      const resu = d.test(label);
+      console.log(d, resu);
+      return resu;
+    });
   }
   private check(input: string) {
     let result: number = 0;
@@ -213,5 +221,8 @@ export class SpoofChecker implements SpoofCheckerContract {
         return cyrillicLikeLatin.test(character);
       })
     );
+  }
+  private isMadeOfHan(label: string): boolean {
+    return scripts.han.test(label);
   }
 }
